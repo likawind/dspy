@@ -6,7 +6,7 @@ import AuthorDetails from '@site/src/components/AuthorDetails';
 
 # Executing Signatures
 
-So far we've understood what signatures are and how we can use them to craft our prompt, but now let's take a look at how to execute them.
+So far we've understood what signatures are and how we can use them to craft our prompt, but now let's take a look at how to execute them. The `Predict` module has been updated to include truncation of raw predictions, ensuring that any noise or input fields included in the completion are properly managed.
 
 ## Configuring LM
 
@@ -19,7 +19,7 @@ dspy.settings.configure(lm=turbo)
 
 ## Executing Signatures
 
-Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. 
+Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. The `Predict` module now includes enhanced functionality to handle truncation of raw predictions, ensuring that any noise or input fields included in the completion are properly managed. 
 
 ```python
 class BasicQA(dspy.Signature):
@@ -50,7 +50,7 @@ The `Predict` module generates a response via the LM we configured above and exe
 
 ## Inspecting Output
 
-Let's dive deeper into DSPy uses our signature to build up the prompt, which we can do through the `inspect_history` method on the configured LM following the program's execution. This method returns the last `n` prompts executed by LM.
+Let's dive deeper into how DSPy uses our signature to build up the prompt, which we can do through the `inspect_history` method on the configured LM following the program's execution. This method returns the last `n` prompts executed by LM. Additionally, the new truncation logic in the `Predict` module ensures that any extraneous input fields included in the completion are removed, providing cleaner and more accurate outputs.
 
 ```python
 turbo.inspect_history(n=1)
