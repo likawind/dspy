@@ -19,7 +19,7 @@ dspy.settings.configure(lm=turbo)
 
 ## Executing Signatures
 
-Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. 
+Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. The `Predict` module now includes improved handling of raw predictions, including truncating unnecessary input fields and managing noise in the output. 
 
 ```python
 class BasicQA(dspy.Signature):
@@ -38,6 +38,10 @@ pred = predictor(question=devset[0].question)
 print(f"Question: {devset[0].question}")
 print(f"Predicted Answer: {pred.answer}")
 print(f"Actual Answer: {devset[0].answer}")
+
+# Example of handling noise in the output
+noisy_pred = predictor(question="What is 1+1?")
+print(f"Predicted Answer with Noise: {noisy_pred.answer}")
 ```
 **Output:**
 ```text
