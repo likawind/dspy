@@ -19,7 +19,7 @@ dspy.settings.configure(lm=turbo)
 
 ## Executing Signatures
 
-Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. 
+Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. The `Predict` module now includes enhanced functionality to handle truncation of raw predictions, ensuring more robust outputs. 
 
 ```python
 class BasicQA(dspy.Signature):
@@ -38,6 +38,8 @@ pred = predictor(question=devset[0].question)
 print(f"Question: {devset[0].question}")
 print(f"Predicted Answer: {pred.answer}")
 print(f"Actual Answer: {devset[0].answer}")
+
+# Note: The `Predict` module now handles truncation of raw predictions to ensure cleaner outputs.
 ```
 **Output:**
 ```text
