@@ -157,6 +157,10 @@ However, a zero-shot approach quickly falls short for more specialized tasks, no
 
 To address this, **DSPy** offers compilation. Let's compile our multi-hop (`SimplifiedBaleen`) program. 
 
+### New Truncation Feature in `extract` Method
+
+The `extract` method now includes a truncation feature to handle cases where the input fields are included in the completion. This ensures that the output is more accurate and relevant. New unit tests have been added to verify this behavior.
+
 Let's first define our validation logic for compilation: 
 
 - The predicted answer matches the gold answer.
