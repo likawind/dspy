@@ -18,7 +18,7 @@ A Signature is usually composed of 2 essential components: **Input Fields** and 
 
 ![DSPy Signatures](./img/dspy_signatures.png)
 
-Let's think of a basic Question-Answer task where the question serves as an input to the LLM from which you receive an answer response. We directly map this in DSPy as the question serves as the Signature's **Input Field** and the answer as the Signature's **Output Field** .
+Let's think of a basic Question-Answer task where the question serves as an input to the LLM from which you receive an answer response. We directly map this in DSPy as the question serves as the Signature's **Input Field** and the answer as the Signature's **Output Field**. Additionally, DSPy now includes mechanisms to handle noisy outputs and ensure robust predictions by truncating any extraneous input fields that might be included in the completion.
 
 Now that we understand the components of a Signature, let's see how we can declare a signature and what a prompt for that signature looks like.
 
@@ -39,7 +39,7 @@ QA Task: question->answer
 RAG Task: context,question->answer,rationale
 ```
 
-This simplistic naming of the fields is essential for the LLM to understand the nature of inputs and outputs, reducing sensitivity and ensuring clarity for expected inputs and generations. 
+This simplistic naming of the fields is essential for the LLM to understand the nature of inputs and outputs, reducing sensitivity and ensuring clarity for expected inputs and generations. The system also includes robust handling of noisy outputs, ensuring that any extraneous input fields included in the completion are truncated appropriately. 
 
 However, this barebones signature may not provide a clear picture for how the model should approach the task, and to meet these needs, DSPy modules offer simplistic yet robust instructional templates that integrate the Signatures.
 Let's take a deeper look at the prompt constructed by DSPy to understand it better when used within a `dspy.Predict` module as `dspy.Predict(question->answer)`:
