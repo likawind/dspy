@@ -186,6 +186,38 @@ teleprompter = BootstrapFewShot(metric=validate_context_and_answer_and_hops)
 compiled_baleen = teleprompter.compile(SimplifiedBaleen(), teacher=SimplifiedBaleen(passages_per_hop=2), trainset=trainset)
 ```
 
+## Handling Truncation in Predictions
+
+The `extract` method in DSPy has been updated to handle truncation of `raw_pred` to ensure that input fields are not included in the completion. This is particularly useful when the input fields are mistakenly included in the output. The method now uses a regular expression to identify and truncate the `raw_pred` at the correct position.
+
+### Example Unit Tests
+
+```python
+def test_single_output():
+    program = Predict("question -> answer")
+    dspy.settings.configure(lm=DummyLM(["my answer"]))
+    results = program(question="What is 1+1?")
+    assert results.completions.answer[0] == "my answer"
+
+
+def test_single_output_with_prefix():
+    """Text for when prefix for answer is included (e.g Gemini)."""
+    program = Predict("question -> answer")
+    dspy.settings.configure(lm=DummyLM(["Answer: my answer"]))
+    results = program(question="What is 1+1?")
+    assert results.completions.answer[0] == "my answer"
+
+
+def test_single_output_with_noise():
+    """Sometimes we see question was also listed as an output."""
+    program = Predict("question -> answer")
+    dspy.settings.configure(lm=DummyLM([
+        "Question: What is 1+1?\nAnswer: my answer"
+    ]))
+    results = program(question="What is 1+1?")
+    assert results.completions.answer[0] == "my answer"
+```
+
 ## Evaluating the Pipeline
 
 Let's now define our evaluation function and compare the performance of the uncompiled and compiled Baleen pipelines. While this devset does not serve as a completely reliable benchmark, it is instructive to use for this tutorial. 
