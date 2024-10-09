@@ -15,8 +15,8 @@ We'll be creating our CoT pipeline from scratch including the metric itself! So 
 ```python
 import dspy
 
-turbo = dspy.OpenAI(model='gpt-3.5-turbo')
-dspy.settings.configure(lm=turbo)
+gpt3 = dspy.OpenAI(model='gpt-3.5-turbo')
+dspy.settings.configure(lm=gpt3)
 ```
 
 Now that we have the LM client setup it's time to import the train-dev split in `HotPotQA` class that DSPy provides us:
