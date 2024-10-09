@@ -164,6 +164,14 @@ Let's first define our validation logic for compilation:
 - None of the generated queries is rambling (i.e., none exceeds 100 characters in length).
 - None of the generated queries is roughly repeated (i.e., none is within 0.8 or higher F1 score of earlier queries).
 
+## Handling Truncation in Predictions
+
+The `extract` method in DSPy has been updated to handle truncation of `raw_pred` to ensure that input fields are not mistakenly included in the completion. This is particularly useful in scenarios where the input fields might be erroneously repeated in the output. The following unit tests have been added to verify this behavior:
+
+- `test_single_output`
+- `test_single_output_with_prefix`
+- `test_single_output_with_noise`
+
 ```python
 def validate_context_and_answer_and_hops(example, pred, trace=None):
     if not dspy.evaluate.answer_exact_match(example, pred): return False
