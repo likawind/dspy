@@ -234,7 +234,7 @@ A signature consists of three simple elements:
 
 - A minimal description of the sub-task the LM is supposed to solve.
 - A description of one or more input fields (e.g., input question) that will we will give to the LM.
-- A description of one or more output fields (e.g., the question's answer) that we will expect from the LM.
+- A description of one or more output fields (e.g., the question's answer) that we will expect from the LM. Note that the output fields may be processed to handle truncation and noise, ensuring the output is clean and relevant.
 
 
 We support two notations for expressing signatures. The **short-hand signature notation** is for quick development. You just provide your module (e.g., `dspy.ChainOfThought`) with a string with `input_field_name_1, ... -> output_field_name_1, ...` with the fields separated by commas.
@@ -259,7 +259,7 @@ class GenerateSearchQuery(dspy.Signature):
 self.generate_answer = dspy.ChainOfThought(GenerateSearchQuery)
 ```
 
-You can optionally provide a `prefix` and/or `desc` key for each input or output field to refine or constrain the behavior of modules using your signature. The description of the sub-task itself is specified as the docstring (i.e., `"""Write a simple..."""`).
+You can optionally provide a `prefix` and/or `desc` key for each input or output field to refine or constrain the behavior of modules using your signature. The `prefix` can help in identifying and truncating the output fields correctly. The description of the sub-task itself is specified as the docstring (i.e., `"""Write a simple..."""`).
 
 
 #### 4.b) Asking **DSPy** to automatically optimize your program with `dspy.teleprompt.*`
