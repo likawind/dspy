@@ -74,7 +74,7 @@ class GenerateSearchQuery(dspy.Signature):
 We could have written `context = GenerateAnswer.signature.context` to avoid duplicating the description of the context field.
 :::
 
-Now that we have the necessary signatures in place, we can start building the Baleen pipeline!
+Now that we have the necessary signatures in place, we can start building the Baleen pipeline! Note that recent updates have made the `extract` method more robust by adding truncation logic to handle noisy outputs.
 
 ## Building the Pipeline
 
