@@ -48,6 +48,10 @@ Actual Answer: no
 
 The `Predict` module generates a response via the LM we configured above and executes the prompt crafted by the signature. This returns the output i.e. `answer` which is present in the object returned by the `predictor` and can be accessed via `.` operator.
 
+### Handling Noisy Outputs
+
+In some cases, the input fields might be included in the completion. The `Predict` module now includes logic to truncate such noisy outputs, ensuring that only the relevant answer is returned. This is particularly useful when the model's output includes parts of the input question or other extraneous text.
+
 ## Inspecting Output
 
 Let's dive deeper into DSPy uses our signature to build up the prompt, which we can do through the `inspect_history` method on the configured LM following the program's execution. This method returns the last `n` prompts executed by LM.
@@ -109,7 +113,7 @@ turbo.history[0]
 
 ## How `Predict` works?
 
-The output of predictor is a `Prediction` class object which mirrors the `Example` class with additional functionalities for LM completion interactivity. 
+The output of predictor is a `Prediction` class object which mirrors the `Example` class with additional handling for noisy outputs. The `extract` method in the `Predict` module ensures that any extraneous text included in the model's completion is truncated, providing a cleaner and more accurate prediction.h additional functionalities for LM completion interactivity. 
 
 How does `Predict` module actually 'predict' though? Here is a step-by-step breakdown:
 
