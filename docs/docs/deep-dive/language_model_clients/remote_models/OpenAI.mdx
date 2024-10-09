@@ -22,6 +22,19 @@ Example of the OpenAI constructor:
 class GPT3(LM): #This is a wrapper for the OpenAI class - dspy.OpenAI = dsp.GPT3
     def __init__(
         self,
+        model: str = "gpt-3.5-instruct",
+        api_key: Optional[str] = None,
+        api_provider: Literal["openai"] = "openai",
+        api_base: Optional[str] = None,
+        base_url: Optional[str] = None,
+        model_type: Literal["chat", "text"] = None,
+        system_prompt: Optional[str] = None,
+        http_client: Optional[httpx.Client] = None,
+        default_headers: Optional[dict[str, str]] = None,
+        **kwargs,
+    ):
+    def __init__(
+        self,
         model: str = "gpt-3.5-turbo-instruct",
         api_key: Optional[str] = None,
         api_provider: Literal["openai", "azure"] = "openai",
@@ -52,7 +65,7 @@ After generation, the completions are post-processed based on the `model_type` p
 ### Using the OpenAI client
 
 ```python
-turbo = dspy.OpenAI(model='gpt-3.5-turbo')
+turbo = dspy.OpenAI(model='gpt-3.5')
 ```
 
 ### Sending Requests via OpenAI Client
