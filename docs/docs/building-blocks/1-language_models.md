@@ -112,7 +112,9 @@ for idx in range(5):
     response = qa(question="How many floors are in the castle David Gregory inherited?", config=dict(temperature=0.7+0.0001*idx))
     print(f'{idx+1}.', response.answer)
 ```
+
 **Output:**
+
 ```text
 1. The specific number of floors in David Gregory's inherited castle is not provided here, so further research would be needed to determine the answer.
 2. It is not possible to determine the exact number of floors in the castle David Gregory inherited without specific information about the castle's layout and history.
@@ -135,9 +137,9 @@ lm = dspy.{provider_listed_below}(model="your model", model_request_kwargs="..."
 
 3.  `dspy.Anyscale` for hosted Llama2 models.
 
-4. `dspy.Together` for hosted various open source models.
+4.  `dspy.Together` for hosted various open source models.
 
-5. `dspy.PremAI` for hosted best open source and closed source models.
+5.  `dspy.PremAI` for hosted best open source and closed source models.
 
 ### Local LMs.
 
