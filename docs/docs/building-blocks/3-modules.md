@@ -19,7 +19,7 @@ Let's start with the most fundamental module, `dspy.Predict`. Internally, all ot
 
 We'll assume you are already at least a little familiar with [DSPy signatures](https://dspy-docs.vercel.app/docs/building-blocks/signatures), which are declarative specs for defining the behavior of any module we use in DSPy.
 
-To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields!
+To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields! Note that `dspy.Predict` now includes additional robustness to handle cases where input fields might be included in the completion.
 
 ```python
 sentence = "it's a charming and often affecting journey."  # example from the SST-2 dataset.
@@ -29,6 +29,7 @@ classify = dspy.Predict('sentence -> sentiment')
 
 # 2) Call with input argument(s). 
 response = classify(sentence=sentence)
+# Note: The output will be truncated to remove any input fields included in the completion.
 
 # 3) Access the output.
 print(response.sentiment)
@@ -52,6 +53,7 @@ classify = dspy.ChainOfThought('question -> answer', n=5)
 
 # 2) Call with input argument.
 response = classify(question=question)
+# Note: The output will be truncated to remove any input fields included in the completion.
 
 # 3) Access the outputs.
 response.completions.answer
