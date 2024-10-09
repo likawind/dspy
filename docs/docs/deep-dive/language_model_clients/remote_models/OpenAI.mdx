@@ -24,7 +24,7 @@ class GPT3(LM): #This is a wrapper for the OpenAI class - dspy.OpenAI = dsp.GPT3
         self,
         model: str = "gpt-3.5-turbo-instruct",
         api_key: Optional[str] = None,
-        api_provider: Literal["openai", "azure"] = "openai",
+        api_provider: Literal["openai"] = "openai",
         api_base: Optional[str] = None,
         model_type: Literal["chat", "text"] = None,
         **kwargs,
@@ -67,14 +67,14 @@ dspy.configure(lm=turbo)
 #Example DSPy CoT QA program
 qa = dspy.ChainOfThought('question -> answer')
 
-response = qa(question="What is the capital of Paris?") #Prompted to turbo
+response = qa(question="What is the capital of France?") #Prompted to turbo
 print(response.answer)
 ```
 
 2) Generate responses using the client directly.
 
 ```python
-response = turbo(prompt='What is the capital of Paris?')
+response = turbo(prompt='What is the capital of France?')
 print(response)
 ```
 
