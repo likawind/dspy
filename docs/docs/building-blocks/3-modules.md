@@ -19,7 +19,7 @@ Let's start with the most fundamental module, `dspy.Predict`. Internally, all ot
 
 We'll assume you are already at least a little familiar with [DSPy signatures](https://dspy-docs.vercel.app/docs/building-blocks/signatures), which are declarative specs for defining the behavior of any module we use in DSPy.
 
-To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields!
+To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields! The `dspy.Predict` module now includes additional robustness features, such as truncating raw predictions and handling noise in the input.
 
 ```python
 sentence = "it's a charming and often affecting journey."  # example from the SST-2 dataset.
@@ -36,6 +36,18 @@ print(response.sentiment)
 **Output:**
 ```text
 Positive
+```
+
+### Handling Noise and Truncation
+
+The `dspy.Predict` module can handle cases where the input fields are included in the completion or when there is noise in the input. Here are some examples:
+
+```python
+# Example with noise in the input
+program = dspy.Predict('question -> answer')
+dspy.settings.configure(lm=DummyLM(['Question: What is 1+1?\nAnswer: my answer']))
+results = program(question='What is 1+1?')
+print(results.completions.answer[0])  # Output: 'my answer'
 ```
 
 When we declare a module, we can pass configuration keys to it.
