@@ -19,7 +19,7 @@ dspy.settings.configure(lm=turbo)
 
 ## Executing Signatures
 
-Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. 
+Let's make use of the simplest module in DSPy - the `Predict` module that takes this signature as input to construct the prompt sent to the LM and generates a response for it. The `Predict` module now includes enhanced handling for truncating raw predictions to ensure cleaner outputs. 
 
 ```python
 class BasicQA(dspy.Signature):
@@ -109,7 +109,7 @@ turbo.history[0]
 
 ## How `Predict` works?
 
-The output of predictor is a `Prediction` class object which mirrors the `Example` class with additional functionalities for LM completion interactivity. 
+The `Predict` module now includes enhanced handling for truncating raw predictions to ensure cleaner outputs. The output of predictor is a `Prediction` class object which mirrors the `Example` class with additional functionalities for LM completion interactivity. 
 
 How does `Predict` module actually 'predict' though? Here is a step-by-step breakdown:
 
