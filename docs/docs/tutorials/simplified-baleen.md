@@ -157,6 +157,10 @@ However, a zero-shot approach quickly falls short for more specialized tasks, no
 
 To address this, **DSPy** offers compilation. Let's compile our multi-hop (`SimplifiedBaleen`) program. 
 
+### New Truncation Feature in `extract` Method
+
+The `extract` method now includes a truncation feature to handle cases where the input fields are included in the completion. This ensures that the output is more accurate and relevant. The truncation is based on the first output field and removes any preceding input fields from the `raw_pred`.
+
 Let's first define our validation logic for compilation: 
 
 - The predicted answer matches the gold answer.
@@ -189,6 +193,10 @@ compiled_baleen = teleprompter.compile(SimplifiedBaleen(), teacher=SimplifiedBal
 ## Evaluating the Pipeline
 
 Let's now define our evaluation function and compare the performance of the uncompiled and compiled Baleen pipelines. While this devset does not serve as a completely reliable benchmark, it is instructive to use for this tutorial. 
+
+### New Unit Tests for `extract` Method
+
+New unit tests have been added to verify the behavior of the `extract` method, including handling of single outputs, outputs with prefixes, and outputs with noise. These tests ensure that the truncation feature works as expected and that the method is robust against various input scenarios.
 
 ```python
 from dspy.evaluate.evaluate import Evaluate
