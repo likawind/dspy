@@ -108,6 +108,15 @@ def answer(doc_query_pair: Input) -> Output:
 prediction = answer(doc_query_pair=doc_query_pair)
 ```
 
+## Handling Input/Output Fields in Predictions
+
+The `extract` method in `dspy` has been enhanced to be more robust by truncating the raw predictions to avoid including input fields in the output. This ensures cleaner and more accurate predictions. The following unit tests have been added to verify this behavior:
+
+- `test_single_output`
+- `test_single_output_with_prefix`
+- `test_single_output_with_noise`
+
+
 ## Composing Functional Typed Predictors in `dspy.Module`
 
 If you're creating DSPy pipelines via `dspy.Module`, then you can simply use Functional Typed Predictors by creating these class methods and using them as decorators. Here is an example of using functional typed predictors to create a `SimplifiedBaleen` pipeline:
