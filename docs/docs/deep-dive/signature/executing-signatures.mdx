@@ -117,7 +117,7 @@ How does `Predict` module actually 'predict' though? Here is a step-by-step brea
 
 2. In `forward` method, DSPy initializes the signature, LM call parameters and few-shot examples, if any.
 
-3. The `_generate` method formats the few shots example to mirror the signature and uses the LM object we configured to generate the output as a `Prediction` object. 
+3. The `_generate` method formats the few shots example to mirror the signature and uses the LM object we configured to generate the output as a `Prediction` object. The `extract` function is used to ensure that the output is correctly truncated, removing any input fields that may have been mistakenly included in the completion. 
 
 In case you are wondering how the prompt is constructed, the DSPy Signature framework internally handles the prompt structure, utilizing the DSP Template primitive to craft the prompt. 
 
