@@ -149,10 +149,10 @@ Additionally, if you'd like to set individual backoff times for specific provide
 
 ```python
 with dspy.context(backoff_time = ..):
-      dspy.OpenAI(...) # example
+      dspy.OpenAI(model='gpt-3.5') # example
 
 with dspy.context(backoff_time = ..):
-      dspy.AzureOpenAI(...) # example
+      dspy.AzureOpenAI(model='gpt-3.5') # example
 ```
 
 At times, DSPy may have hard-coded arguments that are not relevant for your compatible, in which case, please free to open a PR alerting this or comment out these default settings for your usage. 
