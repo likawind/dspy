@@ -19,7 +19,7 @@ Let's start with the most fundamental module, `dspy.Predict`. Internally, all ot
 
 We'll assume you are already at least a little familiar with [DSPy signatures](https://dspy-docs.vercel.app/docs/building-blocks/signatures), which are declarative specs for defining the behavior of any module we use in DSPy.
 
-To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields!
+To use a module, we first **declare** it by giving it a signature. Then we **call** the module with the input arguments, and extract the output fields! Note that the `dspy.Predict` module now includes mechanisms to handle noise in outputs and truncate predictions to ensure cleaner results.
 
 ```python
 sentence = "it's a charming and often affecting journey."  # example from the SST-2 dataset.
@@ -31,6 +31,7 @@ classify = dspy.Predict('sentence -> sentiment')
 response = classify(sentence=sentence)
 
 # 3) Access the output.
+# The output is now cleaner due to improved handling of noise and truncation.
 print(response.sentiment)
 ```
 **Output:**
