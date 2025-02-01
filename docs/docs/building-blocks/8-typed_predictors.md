@@ -151,7 +151,7 @@ from dspy.evaluate import Evaluate
 from dspy.evaluate.metrics import answer_exact_match
 from dspy.teleprompt.signature_opt_typed import optimize_signature
 
-turbo = dspy.OpenAI(model='gpt-3.5-turbo', max_tokens=4000)
+turbo = dspy.OpenAI(model='gpt-3.5', max_tokens=4000)
 gpt4 = dspy.OpenAI(model='gpt-4', max_tokens=4000)
 dspy.settings.configure(lm=turbo)
 

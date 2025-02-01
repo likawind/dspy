@@ -129,7 +129,7 @@ These models are managed services. You just need to sign up and obtain an API ke
 lm = dspy.{provider_listed_below}(model="your model", model_request_kwargs="...")
 ```
 
-1.  `dspy.OpenAI` for GPT-3.5 and GPT-4.
+1.  `dspy.OpenAI` for GPT-3 and GPT-4.
 
 2.  `dspy.Cohere`
 
