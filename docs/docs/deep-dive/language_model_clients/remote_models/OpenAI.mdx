@@ -13,7 +13,7 @@ The constructor initializes the base class `LM` to support prompting requests to
 - `api_key` (_Optional[str]_, _optional_): OpenAI API provider authentication token. Defaults to `None`.
 - `api_provider` (_Literal["openai", "azure"]_, _optional_): OpenAI API provider to use. Defaults to `"openai"`.
 - `api_base` (Optional[str], optional): Base URL for the OpenAI API endpoint. Defaults to `None`.
-- `model_type` (_Literal["chat", "text"]_): Specified model type to use. Defaults to `"gpt-3.5-turbo-instruct"`.
+- `model_type` (_Literal["chat", "text"]_): Specified model type to use. Defaults to `"gpt-3.5-instruct"`.
 - `**kwargs`: Additional language model arguments to pass to OpenAI request. This is initialized with default values for relevant text generation parameters needed for communicating with the GPT API, such as `temperature`, `max_tokens`, `top_p`, `frequency_penalty`, `presence_penalty`, and `n`.
 
 Example of the OpenAI constructor:
@@ -22,7 +22,7 @@ Example of the OpenAI constructor:
 class GPT3(LM): #This is a wrapper for the OpenAI class - dspy.OpenAI = dsp.GPT3
     def __init__(
         self,
-        model: str = "gpt-3.5-turbo-instruct",
+        model: str = "gpt-3.5-instruct",
         api_key: Optional[str] = None,
         api_provider: Literal["openai", "azure"] = "openai",
         api_base: Optional[str] = None,
@@ -52,7 +52,7 @@ After generation, the completions are post-processed based on the `model_type` p
 ### Using the OpenAI client
 
 ```python
-turbo = dspy.OpenAI(model='gpt-3.5-turbo')
+gpt = dspy.OpenAI(model='gpt-3.5')
 ```
 
 ### Sending Requests via OpenAI Client
@@ -62,7 +62,7 @@ turbo = dspy.OpenAI(model='gpt-3.5-turbo')
 This allows you to define programs in DSPy and simply call modules on your input fields, having DSPy internally call the prompt on the configured LM.
 
 ```python
-dspy.configure(lm=turbo)
+dspy.configure(lm=gpt)
 
 #Example DSPy CoT QA program
 qa = dspy.ChainOfThought('question -> answer')
@@ -74,7 +74,7 @@ print(response.answer)
 2) Generate responses using the client directly.
 
 ```python
-response = turbo(prompt='What is the capital of Paris?')
+response = gpt(prompt='What is the capital of Paris?')
 print(response)
 ```
 
