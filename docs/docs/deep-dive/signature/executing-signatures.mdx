@@ -119,7 +119,7 @@ How does `Predict` module actually 'predict' though? Here is a step-by-step brea
 
 3. The `_generate` method formats the few shots example to mirror the signature and uses the LM object we configured to generate the output as a `Prediction` object. 
 
-In case you are wondering how the prompt is constructed, the DSPy Signature framework internally handles the prompt structure, utilizing the DSP Template primitive to craft the prompt. 
+In case you are wondering how the prompt is constructed, the DSPy Signature framework internally handles the prompt structure, utilizing the DSP Template primitive to craft the prompt. The `extract` function in the template now includes a truncation mechanism to handle cases where input fields are mistakenly included in the output, ensuring more robust predictions. 
 
 Predict gives you a predefined pipeline to execute signature which is nice but you can build much more complicated pipelines with this by creating custom Modules.
 
