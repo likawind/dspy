@@ -7,7 +7,7 @@ sidebar_position: 1
 ### Usage
 
 ```python
-lm = dspy.OpenAI(model='gpt-3.5-turbo')
+lm = dspy.OpenAI(model='gpt-3.5')
 ```
 
 ### Constructor
@@ -18,7 +18,7 @@ The constructor initializes the base class `LM` and verifies the provided argume
 class OpenAI(LM):
     def __init__(
         self,
-        model: str = "text-davinci-002",
+        model: str = "gpt-3.5",
         api_key: Optional[str] = None,
         api_provider: Literal["openai"] = "openai",
         model_type: Literal["chat", "text"] = None,
