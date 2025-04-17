@@ -87,6 +87,17 @@ pip install dspy-ai[chromadb] # or [groq] or [marqo] or [milvus] or [mongodb] or
 
 The DSPy documentation is divided into **tutorials** (step-by-step illustration of solving a task in DSPy), **guides** (how to use specific parts of the API), and **examples** (self-contained programs that illustrate usage).
 
+### Terraform Migration Considerations
+
+When migrating to OpsLevel Terraform provider version 1.0.0 or higher, consider the following:
+
+- **Upgrade Recommendation**: Upgrade to version 1.2 or higher for optimal stability.
+- **Syntax Changes**: Some resource fields have changed from "block type fields" to requiring an "=" sign.
+- **Datasource Updates**: Updates to datasources, especially changes in output formats for "plural" datasources like `data.opslevel_domains`.
+- **State Migration Steps**: Follow a step-by-step guide for performing state migration, including identifying problematic resources, removing them from the Terraform state, and re-importing them.
+
+For more detailed information, refer to the [Migration Guide](https://github.com/OpsLevel/terraform-provider-opslevel/blob/main/MIGRATION.md) and [Changelog](https://github.com/OpsLevel/terraform-provider-opslevel/blob/main/CHANGELOG.md).
+
 ### A) Tutorials
 
 | **Level** |  **Tutorial** |  **Run in Colab** |  **Description** |
