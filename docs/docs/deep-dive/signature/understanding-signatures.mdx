@@ -14,11 +14,11 @@ There are 2 ways to define a Signature: **Inline** and **Class-Based**. But befo
 
 In the typical LLM pipeline, you'll have two key components at work i.e. an LLM and a prompt. In DSPy, we have an LLM configured at the beginning of any DSPy script via the LM(Language Model - which is shown in the next blog) and a prompt defined via **Signatures**.
 
-A Signature is usually composed of 2 essential components: **Input Fields** and **Output Fields**. You can optionally pass an instruction defining more robust requirements of your task. An **Input Field** is an attribute of Signature that defines an input to the prompt and an **Output Field** is an attribute of Signature that defines an output of the prompt received from an LLM call. Let's understand this by an example.
+A Signature is usually composed of 2 essential components: **Input Fields** and **Output Fields**. You can optionally pass an instruction defining more robust requirements of your task. An **Input Field** is an attribute of Signature that defines an input to the prompt and an **Output Field** is an attribute of Signature that defines an output of the prompt received from an LLM call. Note that DSPy now includes a mechanism to truncate raw predictions to ensure only relevant output fields are included, enhancing the robustness of output processing. Let's understand this by an example.
 
 ![DSPy Signatures](./img/dspy_signatures.png)
 
-Let's think of a basic Question-Answer task where the question serves as an input to the LLM from which you receive an answer response. We directly map this in DSPy as the question serves as the Signature's **Input Field** and the answer as the Signature's **Output Field** .
+Let's think of a basic Question-Answer task where the question serves as an input to the LLM from which you receive an answer response. We directly map this in DSPy as the question serves as the Signature's **Input Field** and the answer as the Signature's **Output Field**. With the recent update, DSPy ensures that any extraneous input fields included in the output are truncated, maintaining the integrity of the output field.
 
 Now that we understand the components of a Signature, let's see how we can declare a signature and what a prompt for that signature looks like.
 
