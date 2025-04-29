@@ -14,7 +14,7 @@ There are 2 ways to define a Signature: **Inline** and **Class-Based**. But befo
 
 In the typical LLM pipeline, you'll have two key components at work i.e. an LLM and a prompt. In DSPy, we have an LLM configured at the beginning of any DSPy script via the LM(Language Model - which is shown in the next blog) and a prompt defined via **Signatures**.
 
-A Signature is usually composed of 2 essential components: **Input Fields** and **Output Fields**. You can optionally pass an instruction defining more robust requirements of your task. An **Input Field** is an attribute of Signature that defines an input to the prompt and an **Output Field** is an attribute of Signature that defines an output of the prompt received from an LLM call. Let's understand this by an example.
+A Signature is usually composed of 2 essential components: **Input Fields** and **Output Fields**. You can optionally pass an instruction defining more robust requirements of your task. An **Input Field** is an attribute of Signature that defines an input to the prompt and an **Output Field** is an attribute of Signature that defines an output of the prompt received from an LLM call. Note that DSPy now includes logic to truncate raw predictions to ensure only relevant output fields are considered, enhancing the robustness of output processing. Let's understand this by an example.
 
 ![DSPy Signatures](./img/dspy_signatures.png)
 
@@ -59,7 +59,7 @@ Answer: ${answer}
 Question:
 ```
 
-As you can see, DSPy populates the instruction `Given the fields ``question``, produce the fields ``answer``.` to define the task and provides instructions for the prompt format. And this format is pretty standard for any Signature you create as we can see in this prompting setup for RAG:
+As you can see, DSPy populates the instruction `Given the fields ``question``, produce the fields ``answer``.` to define the task and provides instructions for the prompt format. This format is pretty standard for any Signature you create, and DSPy now includes additional logic to handle cases where input fields might be included in the output, ensuring the output is correctly truncated to start from the first output field. This is evident in the prompting setup for RAG:
 
 ![Prompt Creation for Inline](./img/prompt_creation.png)
 
