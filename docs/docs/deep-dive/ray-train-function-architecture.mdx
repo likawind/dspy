@@ -1,0 +1,43 @@
+# Ray Train Function Architecture
+
+In Ray Train, the function architecture is designed to efficiently manage distributed training and evaluation of machine learning models. This documentation provides a detailed explanation of the roles of the key functions: `train_loop_per_worker`, `train_epoch`, and `eval_epoch`, and how they interact within the Ray framework.
+
+## Function Roles
+
+### `train_loop_per_worker`
+
+- **Main Entry Point**: This function acts as the main entry point for each distributed worker in the Ray cluster. It orchestrates the entire training and evaluation process.
+- **Epoch Management**: For each epoch, `train_loop_per_worker` calls `train_epoch` to perform a training pass over the dataset and `eval_epoch` to evaluate the model's performance.
+- **Ray Integration**: Utilizes Ray's APIs to manage data distribution, model preparation, synchronization, and centralized metric reporting.
+
+### `train_epoch`
+
+- **Training Execution**: Handles the training logic for a single epoch. This includes forward and backward passes, loss computation, and optimizer updates.
+
+### `eval_epoch`
+
+- **Evaluation Execution**: Manages the evaluation logic for a single epoch, typically involving validation dataset inference and metric computation.
+
+## Ray APIs in `train_loop_per_worker`
+
+- **Data Loader Preparation**: `ray.train.torch.prepare_data_loader` is used to prepare data loaders for distributed training, ensuring that data is correctly partitioned and accessible by each worker.
+- **Model Preparation**: `ray.train.torch.prepare_model` wraps the model with `DistributedDataParallel` to synchronize gradients across workers during training.
+- **Metric Reporting**: `ray.train.report` is used to report metrics such as loss and accuracy back to Ray, allowing for centralized monitoring and coordination.
+
+## Step-by-Step Workflow
+
+1. **Cluster Initialization**: Ray initializes a cluster and launches multiple workers, each executing `train_loop_per_worker`.
+2. **Training and Evaluation**: Within `train_loop_per_worker`, for each epoch:
+   - `train_epoch` is called to perform training.
+   - `eval_epoch` is called to evaluate the model.
+3. **Data and Model Setup**: Data loaders and models are prepared using Ray's APIs to ensure they are ready for distributed execution.
+4. **Metric Reporting**: Metrics are reported back to Ray using `ray.train.report`, enabling centralized tracking of training progress.
+
+## Behind the Scenes
+
+Ray handles the distributed execution by:
+- **Parallelizing Training and Evaluation**: Distributing `train_loop_per_worker` across multiple workers to parallelize the workload.
+- **Synchronizing Gradients**: Ensuring that model updates are synchronized across all workers.
+- **Aggregating Results**: Collecting and aggregating metrics from all workers for comprehensive monitoring.
+
+This architecture allows for efficient distributed training and evaluation, leveraging Ray's capabilities to manage resources and execution across a cluster of machines.
