@@ -1,0 +1,68 @@
+# Ray Train Function Architecture
+
+In the context of Ray Train, understanding the interaction between `train_loop_per_worker`, `train_epoch`, and `eval_epoch` is crucial for effectively implementing distributed training. This documentation provides a detailed explanation of how these components work together and how Ray facilitates distributed execution.
+
+## Overview
+
+- **`train_loop_per_worker`**: This function serves as the entry point for each distributed worker in a Ray Train setup. It orchestrates the training and evaluation process by calling `train_epoch` and `eval_epoch` for each epoch.
+- **`train_epoch`**: This function is responsible for executing the training logic for a single epoch. It typically involves iterating over the training dataset, performing forward and backward passes, and updating model parameters.
+- **`eval_epoch`**: This function evaluates the model's performance on a validation or test dataset after each training epoch. It helps in monitoring the model's progress and adjusting hyperparameters if necessary.
+
+## How Ray Distributes `train_loop_per_worker`
+
+Ray distributes the `train_loop_per_worker` function across multiple workers to enable parallel execution. Here's a step-by-step breakdown of the process:
+
+1. **Cluster Initialization**: Before starting the training job, a Ray cluster is initialized. This can be done using the Ray command-line interface (CLI) or programmatically within a Python script.
+   ```python
+   import ray
+   ray.init()
+   ```
+
+2. **Resource Definition**: Resources required for the training job, such as the number of nodes, GPUs, and memory, are defined in a configuration file (e.g., `ray_train.yaml`).
+
+3. **Function Distribution**: The `train_loop_per_worker` function is distributed across the specified number of workers. Each worker executes this function independently, allowing for parallel processing.
+
+4. **Training and Evaluation**: Within `train_loop_per_worker`, the `train_epoch` and `eval_epoch` functions are called iteratively for each epoch. This loop continues until the training process is complete.
+
+5. **Metric Reporting**: Throughout the training process, metrics such as loss and accuracy are reported back to Ray Train for monitoring and analysis.
+   ```python
+   ray.train.report(metrics={'loss': test_loss, 'accuracy': accuracy})
+   ```
+
+## Workflow Diagram
+
+Below is a simplified diagram illustrating the workflow of the distributed training process:
+
+```
++---------------------+
+| Ray Cluster         |
+| Initialization      |
++---------------------+
+          |
+          v
++---------------------+
+| Distribute          |
+| train_loop_per_worker |
++---------------------+
+          |
+          v
++---------------------+
+| Worker 1            |
+| - train_epoch       |
+| - eval_epoch        |
++---------------------+
+          |
+          v
++---------------------+
+| Worker 2            |
+| - train_epoch       |
+| - eval_epoch        |
++---------------------+
+          |
+          v
++---------------------+
+| Metric Reporting    |
++---------------------+
+```
+
+By following this architecture, Ray Train enables efficient distributed training of machine learning models, leveraging parallel execution to speed up the training process and improve scalability.
