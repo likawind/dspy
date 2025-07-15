@@ -1,0 +1,61 @@
+# Adding New API Routes in RunLLM Backend
+
+This guide will walk you through the process of adding new API routes in the RunLLM backend using FastAPI. Follow these steps to create, define, and register a new route in your application.
+
+## Step 1: Create a New Python Module with an APIRouter Definition
+
+First, create a new Python file in your project directory. For example, let's create a file named `assistants.py`.
+
+```python
+# src/mcp_server/assistants.py
+
+from fastapi import APIRouter
+from typing import List
+from pydantic import BaseModel
+
+class Assistant(BaseModel):
+    id: int
+    name: str
+    description: str
+
+router = APIRouter()
+
+@router.get("/assistants", response_model=List[Assistant])
+async def get_assistants():
+    # Replace with your actual data fetching logic
+    return [
+        Assistant(id=1, name="Assistant 1", description="First assistant"),
+        Assistant(id=2, name="Assistant 2", description="Second assistant"),
+    ]
+```
+
+In this module, we define a new route `/assistants` that returns a list of assistants. The `Assistant` class is a Pydantic model that defines the structure of the response.
+
+## Step 2: Register the Router in the Main Server Application
+
+Next, you need to include this new router in your main server application file, typically named `server.py`.
+
+```python
+# src/mcp_server/server.py
+
+from fastapi import FastAPI
+from .assistants import router as assistants_router
+
+app = FastAPI()
+
+app.include_router(assistants_router)
+```
+
+By including the router, the new route becomes part of your FastAPI application.
+
+## Step 3: Best Practices for Structuring Routes and Handling Responses
+
+- **Modularize Your Code**: Keep your route definitions in separate modules to maintain a clean and organized codebase.
+- **Use Pydantic Models**: Define response models using Pydantic to ensure data validation and clear API documentation.
+- **Error Handling**: Implement proper error handling within your route functions to manage exceptions and provide meaningful error messages.
+
+## Additional Resources
+
+For more context, you can refer to the existing codebase structure in the [RunLLM GitHub repository](https://github.com/runllm/RunLLM/blob/main/src/mcp_server/server.py).
+
+By following these steps, you can effectively add new API routes to the RunLLM backend, ensuring they are well-structured and maintainable.
