@@ -1,0 +1,43 @@
+# Customizing API Route Function Names
+
+In the RunLLM backend, you have the flexibility to customize the function names used in your API route definitions. This customization is primarily for improving code readability and organization within your codebase. It does not affect the external behavior of the API, such as the route path or the response model.
+
+## Guidelines for Customizing Function Names
+
+- **Naming Conventions**: Ensure that the function names adhere to Python naming conventions. This typically means using lowercase letters and underscores to separate words (e.g., `fetch_assistants`).
+- **Internal Use**: The function name is used internally within your codebase and does not impact the API's external interface.
+
+## Example: Renaming a Function
+
+Suppose you have an API route function named `get_assistants`. You can rename it to `fetch_assistants` to better reflect its purpose or to align with your naming conventions.
+
+### Before Renaming
+
+```python
+@router.get("/assistants", response_model=List[Assistant])
+async def get_assistants():
+    # Your data fetching logic here
+    return [
+        Assistant(id=1, name="Assistant 1", description="First assistant"),
+        Assistant(id=2, name="Assistant 2", description="Second assistant"),
+    ]
+```
+
+### After Renaming
+
+```python
+@router.get("/assistants", response_model=List[Assistant])
+async def fetch_assistants():
+    # Your data fetching logic here
+    return [
+        Assistant(id=1, name="Assistant 1", description="First assistant"),
+        Assistant(id=2, name="Assistant 2", description="Second assistant"),
+    ]
+```
+
+## Key Points
+
+- **No Impact on Route Path**: Changing the function name does not alter the route path (`/assistants` in this case) or the response model.
+- **Code Readability**: Choose function names that clearly describe the action or purpose of the function to enhance code readability.
+
+By following these guidelines, you can maintain a clean and organized codebase while customizing function names to suit your development needs.
