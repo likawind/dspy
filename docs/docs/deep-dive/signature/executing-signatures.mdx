@@ -46,11 +46,11 @@ Predicted Answer: No.
 Actual Answer: no
 ```
 
-The `Predict` module generates a response via the LM we configured above and executes the prompt crafted by the signature. This returns the output i.e. `answer` which is present in the object returned by the `predictor` and can be accessed via `.` operator.
+The `Predict` module generates a response via the LM we configured above and executes the prompt crafted by the signature. This returns the output i.e. `answer` which is present in the object returned by the `predictor` and can be accessed via `.` operator. The module now includes mechanisms to handle noise in predictions and truncates outputs to ensure only relevant information is returned.
 
 ## Inspecting Output
 
-Let's dive deeper into DSPy uses our signature to build up the prompt, which we can do through the `inspect_history` method on the configured LM following the program's execution. This method returns the last `n` prompts executed by LM.
+Let's dive deeper into DSPy uses our signature to build up the prompt, which we can do through the `inspect_history` method on the configured LM following the program's execution. This method returns the last `n` prompts executed by LM. The `Predict` module now also ensures that any noise or irrelevant input fields included in the completion are truncated, providing cleaner and more accurate outputs.
 
 ```python
 turbo.inspect_history(n=1)
