@@ -108,6 +108,10 @@ You can specify JSON-type descriptions in the `desc` field of the long-form sign
 
 If you notice outputs are still not conforming to JSON formatting, try Asserting this constraint! Check out [Assertions](https://dspy-docs.vercel.app/docs/building-blocks/assertions) (or the next question!)
 
+- **How do I use the updated GPT-3 functions?**
+
+The functions related to GPT-3 have been renamed to remove 'turbo' from their names. Ensure you are using the updated function names such as `_cached_gpt3_request_v2_wrapped` instead of `_cached_gpt3_turbo_request_v2_wrapped`.
+
 - **How do I use DSPy assertions?**
 
     a) **How to Add Assertions to Your Program**:
