@@ -1,0 +1,85 @@
+# Filtered Snapshot Feature Documentation
+
+## Overview
+
+The **Filtered Snapshot** feature in RunLLM allows users to filter data such as chat history, metrics, and document usage by various criteria. This feature is designed to help users create specific views of their data, which can be viewed or exported for further analysis or sharing.
+
+## Key Features
+
+- **Filter Criteria**: Users can filter data by surface (e.g., Slack, Website), time range, and feedback type (e.g., upvotes, downvotes).
+- **Dashboard and API Integration**: Filters can be applied through the RunLLM dashboard or via API endpoints.
+- **Export Options**: Filtered data can be exported as CSV files or accessed through API responses.
+
+## Using the Filtered Snapshot Feature
+
+### Filtering Data
+
+1. **Access the Dashboard**: Navigate to the RunLLM dashboard where you can manage your data.
+2. **Select Filter Criteria**:
+   - **Surface**: Choose the platform where the assistant is deployed (e.g., Slack, Website).
+   - **Time Range**: Specify the time period for the data you want to view.
+   - **Feedback Type**: Filter by feedback types such as upvotes or downvotes.
+3. **Apply Filters**: Use the filter options to narrow down the data to your desired view.
+
+### Using the Filter Component in the UI
+
+The `Filter` component in the RunLLM UI allows for dynamic filtering of data. Here is a basic example of how to use it:
+
+```tsx
+import React, { useState } from "react";
+import { Filter, FilterOption, FilterEntry } from "@components/common/Filter";
+
+const statusOptions: FilterOption[] = [
+  { value: "open", label: "Open" },
+  { value: "closed", label: "Closed" },
+];
+
+function FilteredSnapshotDemo() {
+  const [selectedStatus, setSelectedStatus] = useState<FilterEntry[]>([]);
+
+  // Example data to filter
+  const items = [
+    { id: 1, status: "open", name: "Issue 1" },
+    { id: 2, status: "closed", name: "Issue 2" },
+  ];
+
+  // Apply filter
+  const filteredItems = selectedStatus.length
+    ? items.filter(item =>
+        selectedStatus.some(
+          entry => entry[0].value === item.status
+        )
+      )
+    : items;
+
+  return (
+    <div>
+      <Filter
+        options={statusOptions}
+        value={selectedStatus}
+        onValueChange={setSelectedStatus}
+        multiple={true}
+        placeholder="Select status..."
+      />
+      <ul>
+        {filteredItems.map(item => (
+          <li key={item.id}>{item.name} ({item.status})</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default FilteredSnapshotDemo;
+```
+
+### Exporting Filtered Data
+
+Once you have applied the desired filters, you can export the filtered data:
+
+- **Download as CSV**: Use the export option in the dashboard to download the filtered data as a CSV file.
+- **API Responses**: Access the filtered data through API responses for integration with other systems.
+
+## Conclusion
+
+The Filtered Snapshot feature in RunLLM provides a powerful way to view and analyze specific subsets of your data. By using the filtering options available in the dashboard and API, you can create tailored views and export them for further use. This feature is essential for users who need to manage large datasets and extract meaningful insights efficiently.
