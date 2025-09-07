@@ -1,0 +1,43 @@
+# Chunk Refresh Behavior in Ingestion Pipeline
+
+## Overview
+
+In the RunLLM ingestion pipeline, the system is designed to handle updates at the chunk level. This means that when any data within a chunk changes, the entire chunk is refreshed—re-ingested and re-indexed. This approach ensures data consistency and integrity, minimizing the risk of serving outdated or inconsistent information.
+
+## Key Concepts
+
+### MD5 Checksums
+
+- **Change Detection**: The system uses MD5 checksums to detect changes in chunks. Each chunk is assigned a unique MD5 checksum based on its content. If the content of a chunk changes, its checksum changes, indicating that the chunk has been modified.
+
+### Chunk Update Process
+
+1. **Generate New Chunks**: When an update job is initiated, new chunks are generated for the crawled data.
+2. **Identify Changes**: The system identifies which chunks need to be deleted and which need to be added by comparing the MD5 checksums.
+3. **Update the Index**: The old chunks are deleted from the index, and the new chunks are added. This process ensures that the index remains consistent and up-to-date.
+
+### Rationale for Design Choice
+
+- **Data Consistency**: By refreshing the entire chunk, the system ensures that all data served is consistent and up-to-date.
+- **Integrity**: This approach prevents the risk of serving outdated or inconsistent information, which could occur if only parts of a chunk were updated.
+
+## High-Level Algorithm for Update Jobs
+
+- **Step 1**: Generate large chunks for the crawled data.
+- **Step 2**: Use the MD5 checksum to identify chunks that need to be deleted and those that need to be added.
+- **Step 3**: Update the index by deleting old chunks and adding new ones.
+
+## Example and Impact
+
+Consider a scenario where a document is divided into multiple chunks. If a single sentence in one chunk changes, the entire chunk is treated as new:
+
+- **Old Chunk**: Deleted from the index.
+- **New Chunk**: Added to the index with a new MD5 checksum.
+
+This ensures that any queries made to the system will retrieve the most current and accurate data.
+
+## Conclusion
+
+The chunk-level update strategy in the RunLLM ingestion pipeline is a deliberate design choice aimed at maintaining data consistency and integrity. By using MD5 checksums to detect changes and refreshing entire chunks, the system ensures that users always receive the most accurate and up-to-date information.
+
+For further details on the implementation or to see diagrams illustrating the chunk update process, please refer to the relevant sections in the documentation or contact the support team.
